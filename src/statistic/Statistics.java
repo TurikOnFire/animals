@@ -37,27 +37,6 @@ public class Statistics {
         }
     }
 
-    // Методы для получения статистики
-    public Map<Class<? extends Animal>, Integer> getCurrentPopulation() {
-        return convertToMap(currentPopulation);
-    }
-
-    public Map<Class<? extends Animal>, Integer> getAnimalsEatenToday() {
-        return convertToMap(animalsEaten);
-    }
-
-    public Map<Class<? extends Animal>, Integer> getStarvedToDeathToday() {
-        return convertToMap(starvedToDeath);
-    }
-
-    public Map<Class<? extends Animal>, Integer> getDiedOfOldAgeToday() {
-        return convertToMap(diedOfOldAge);
-    }
-
-    public Map<Class<? extends Animal>, Integer> getAnimalsBornToday() {
-        return convertToMap(animalsBorn);
-    }
-
     public int getTotalPopulation() {
         return currentPopulation.values().stream().mapToInt(AtomicInteger::get).sum();
     }
@@ -78,13 +57,6 @@ public class Statistics {
         starvedToDeath.clear();
         diedOfOldAge.clear();
         animalsBorn.clear();
-    }
-
-    // Вспомогательные методы
-    private Map<Class<? extends Animal>, Integer> convertToMap(Map<Class<? extends Animal>, AtomicInteger> source) {
-        Map<Class<? extends Animal>, Integer> result = new HashMap<>();
-        source.forEach((key, value) -> result.put(key, value.get()));
-        return result;
     }
 
     private void printStatistic(String title, Map<Class<? extends Animal>, AtomicInteger> data) {

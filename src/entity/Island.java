@@ -1,6 +1,7 @@
 package entity;
 
 import entity.animals.Animal;
+import entity.animals.Herbivore;
 import entity.animals.herbivors.*;
 import entity.animals.predators.*;
 import simulation.Simulation;
@@ -87,5 +88,19 @@ public class Island {
 
     public Simulation getSimulation() {
         return simulation;
+    }
+
+    public boolean allHerbivoresDead () {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                for (Animal animal : locations[x][y].getAnimals()) {
+                    if (animal instanceof Herbivore) {
+                        return false;
+                    }
+                }
+            }
+        }
+        System.out.println("All Herbivores are Dead");
+        return true;
     }
 }

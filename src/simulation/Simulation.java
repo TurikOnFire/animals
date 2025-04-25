@@ -53,6 +53,8 @@ public class Simulation {
                 Thread.currentThread().interrupt();
                 stop();
             }
+            if (island.allHerbivoresDead())
+                island.stopSimulation();
         }
     }
 

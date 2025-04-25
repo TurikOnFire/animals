@@ -18,7 +18,7 @@ public class Location {
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
-        this.maxPlants = 200;
+        this.maxPlants = Randomizer.nextDouble(200);
         this.plants = maxPlants * Randomizer.nextDouble();
     }
 

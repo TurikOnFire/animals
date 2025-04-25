@@ -8,4 +8,6 @@ public class Settings {
     private int startAnimalCount;
     private boolean allAnimalsDead;
     private boolean allHerbivoresDead;
+
+
 }
