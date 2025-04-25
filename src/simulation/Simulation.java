@@ -98,24 +98,24 @@ public class Simulation {
             animal.move(island);
             animal.eat(island);
             animal.reproduce(island);
-            animal.age();
+            animal.age(island);
 
             // Проверяем, умерло ли животное
-            if (!animal.isAlive()) {
-                DeathCause cause = determineDeathCause(animal, previousSatiety);
-                statistics.registerAnimalDeath(animal.getClass(), cause);
-            }
+//            if (!animal.isAlive()) {
+//                DeathCause cause = determineDeathCause(animal, previousSatiety);
+//                statistics.registerAnimalDeath(animal.getClass(), cause);
+//            }
         } finally {
             lock.unlock();
         }
     }
 
-    private DeathCause determineDeathCause(Animal animal, double previousSatiety) {
-        if (animal.getAge() >= animal.getMaxAge()) {
-            return DeathCause.OLD_AGE;
-        }
-        return previousSatiety <= 0 ? DeathCause.STARVATION : DeathCause.EATEN;
-    }
+//    private DeathCause determineDeathCause(Animal animal, double previousSatiety) {
+//        if (animal.getAge() >= animal.getMaxAge()) {
+//            return DeathCause.OLD_AGE;
+//        }
+//        return previousSatiety <= 0 ? DeathCause.STARVATION : DeathCause.EATEN;
+//    }
 
     private void waitForCompletion(List<Future<?>> futures) {
         for (Future<?> future : futures) {

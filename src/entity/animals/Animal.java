@@ -2,6 +2,7 @@ package entity.animals;
 
 import entity.Island;
 import entity.Location;
+import statistic.DeathCause;
 import utils.Randomizer;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public abstract class Animal {
         if (!alive || speed == 0) return;
 
         for (int i = 0; i < speed; i++) {
-            if (Randomizer.nextDouble() > 0.3) continue; // 70% вероятность не двигаться
+            if (Randomizer.nextDouble() > 0.8) continue; // 20% вероятность не двигаться
 
             int direction = Randomizer.nextInt(4);
             int newX = location.getX();
@@ -82,16 +83,24 @@ public abstract class Animal {
         }
     }
 
-    public void age() {
+    public void age(Island island) {
         age++;
         satiety -= foodNeeded * 0.1;
-        if (satiety <= 0 || age >= maxAge) {
+        if (age >= maxAge) {
+            island.getSimulation().getStatistics().registerAnimalDeath(this.getClass(), DeathCause.OLD_AGE);
+            alive = false;
+        } else if (satiety <= 0) {
+            island.getSimulation().getStatistics().registerAnimalDeath(this.getClass(), DeathCause.STARVATION);
             alive = false;
         }
     }
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     public double getWeight() {
@@ -106,10 +115,11 @@ public abstract class Animal {
         return location;
     }
 
-    protected boolean tryToEat(Animal prey, int probability) {
+    protected boolean tryToEat(Animal prey, int probability, Island island) {
         if (Randomizer.nextInt(100) < probability) {
             satiety = Math.min(satiety + prey.getWeight(), foodNeeded);
             prey.alive = false;
+            island.getSimulation().getStatistics().registerAnimalDeath(prey.getClass(), DeathCause.EATEN);
             return true;
         }
         return false;

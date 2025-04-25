@@ -22,7 +22,7 @@ public class Duck extends Herbivore {
         }
         for (Animal animal : location.getAnimals()) {
             if (animal instanceof Caterpillar) {
-                if (tryToEat(animal, 90)) return true;
+                if (tryToEat(animal, 90, island)) return true;
             }
         }
         return false;

@@ -16,13 +16,13 @@ public class Fox extends Predator {
 
         for (Animal animal : location.getAnimals()) {
             if (animal instanceof Rabbit) {
-                if (tryToEat(animal, 70)) return true;
+                if (tryToEat(animal, 70, island)) return true;
             } else if (animal instanceof Mouse) {
-                if (tryToEat(animal, 90)) return true;
+                if (tryToEat(animal, 90, island)) return true;
             } else if (animal instanceof Duck) {
-                if (tryToEat(animal, 60)) return true;
+                if (tryToEat(animal, 60, island)) return true;
             } else if (animal instanceof Caterpillar) {
-                if (tryToEat(animal, 40)) return true;
+                if (tryToEat(animal, 40, island)) return true;
             }
         }
         return false;

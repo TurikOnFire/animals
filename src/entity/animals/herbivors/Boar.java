@@ -22,9 +22,9 @@ public class Boar extends Herbivore {
         }
         for (Animal animal : location.getAnimals()) {
             if (animal instanceof Caterpillar) {
-                if (tryToEat(animal, 90)) return true;
+                if (tryToEat(animal, 90, island)) return true;
             } else if (animal instanceof Mouse) {
-                if (tryToEat(animal, 50)) return true;
+                if (tryToEat(animal, 50, island)) return true;
             }
         }
         return false;

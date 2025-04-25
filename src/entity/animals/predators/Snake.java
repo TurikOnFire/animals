@@ -16,13 +16,13 @@ public class Snake extends Predator {
 
         for (Animal animal : location.getAnimals()) {
             if (animal instanceof Rabbit) {
-                if (tryToEat(animal, 20)) return true;
+                if (tryToEat(animal, 20, island)) return true;
             } else if (animal instanceof Fox) {
-                if (tryToEat(animal, 15)) return true;
+                if (tryToEat(animal, 15, island)) return true;
             } else if (animal instanceof Mouse) {
-                if (tryToEat(animal, 40)) return true;
+                if (tryToEat(animal, 40, island)) return true;
             } else if (animal instanceof Duck) {
-                if (tryToEat(animal, 10)) return true;
+                if (tryToEat(animal, 10, island)) return true;
             }
         }
         return false;

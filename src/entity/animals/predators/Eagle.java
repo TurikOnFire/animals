@@ -16,13 +16,13 @@ public class Eagle extends Predator {
 
         for (Animal animal : location.getAnimals()) {
             if (animal instanceof Fox) {
-                if (tryToEat(animal, 10)) return true;
+                if (tryToEat(animal, 10, island)) return true;
             } else if (animal instanceof Rabbit) {
-                if (tryToEat(animal, 90)) return true;
+                if (tryToEat(animal, 90, island)) return true;
             } else if (animal instanceof Mouse) {
-                if (tryToEat(animal, 90)) return true;
+                if (tryToEat(animal, 90, island)) return true;
             } else if (animal instanceof Duck) {
-                if (tryToEat(animal, 80)) return true;
+                if (tryToEat(animal, 80, island)) return true;
             }
         }
         return false;

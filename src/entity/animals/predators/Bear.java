@@ -16,25 +16,25 @@ public class Bear extends Predator {
 
         for (Animal animal : location.getAnimals()) {
             if (animal instanceof Snake) {
-                if (tryToEat(animal, 80)) return true;
+                if (tryToEat(animal, 80, island)) return true;
             } else if (animal instanceof Horse) {
-                if (tryToEat(animal, 40)) return true;
+                if (tryToEat(animal, 40, island)) return true;
             } else if (animal instanceof Deer) {
-                if (tryToEat(animal, 80)) return true;
+                if (tryToEat(animal, 80, island)) return true;
             } else if (animal instanceof Rabbit) {
-                if (tryToEat(animal, 80)) return true;
+                if (tryToEat(animal, 80, island)) return true;
             } else if (animal instanceof Mouse) {
-                if (tryToEat(animal, 90)) return true;
+                if (tryToEat(animal, 90, island)) return true;
             } else if (animal instanceof Goat) {
-                if (tryToEat(animal, 70)) return true;
+                if (tryToEat(animal, 70, island)) return true;
             } else if (animal instanceof Sheep) {
-                if (tryToEat(animal, 70)) return true;
+                if (tryToEat(animal, 70, island)) return true;
             } else if (animal instanceof Boar) {
-                if (tryToEat(animal, 50)) return true;
+                if (tryToEat(animal, 50, island)) return true;
             } else if (animal instanceof Buffalo) {
-                if (tryToEat(animal, 20)) return true;
+                if (tryToEat(animal, 20, island)) return true;
             } else if (animal instanceof Duck) {
-                if (tryToEat(animal, 10)) return true;
+                if (tryToEat(animal, 10, island)) return true;
             }
         }
         return false;
