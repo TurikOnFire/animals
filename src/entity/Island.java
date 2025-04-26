@@ -8,15 +8,35 @@ import simulation.Simulation;
 import utils.Randomizer;
 import utils.Settings;
 
+import java.math.BigInteger;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class Island {
-    int height = Settings.ISLAND_HEIGHT;
-    int width = Settings.ISLAND_WIDTH;
+    int height;
+    int width;
+    Integer timeForIsland;
+    int startAmountOfAnimals;
     Location[][] locations = new Location[height][width];
     public Simulation simulation;
+    private final ScheduledExecutorService stopperExecutor = Executors.newSingleThreadScheduledExecutor();
 
-    public Island(int height, int width) {
-        this.height = height;
-        this.width = width;
+    public Island(Settings settings) {
+        this.height = settings.getISLAND_HEIGHT();
+        this.width = settings.getISLAND_WIDTH();
+        if (settings.getTimeForIslandLife() > 0) {
+            this.timeForIsland = settings.getTimeForIslandLife();
+        } else {
+            this.timeForIsland = 600;
+        }
+        if (settings.getStartAmountOfAnimals() > 0) {
+            this.startAmountOfAnimals = settings.getStartAmountOfAnimals();
+        } else {
+            this.startAmountOfAnimals = 500;
+        }
+
+
         this.locations = new Location[height][width];
 
         for (int y = 0; y < height; y++) {
@@ -29,12 +49,18 @@ public class Island {
     public void startSimulation() {
         this.simulation = new Simulation(this);
         new Thread(simulation::start).start();
+
+        if (timeForIsland != null) {
+            stopperExecutor.schedule(this::stopSimulation, timeForIsland, TimeUnit.SECONDS);
+            stopperExecutor.shutdown();
+        }
     }
 
     public void stopSimulation() {
         if (simulation != null) {
             simulation.stop();
         }
+        stopperExecutor.shutdownNow();
     }
 
     public Location getLocation(int x, int y) {
@@ -53,7 +79,7 @@ public class Island {
     }
 
     public void initialize() {
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < startAmountOfAnimals; i++) {
             int x = Randomizer.nextInt(width);
             int y = Randomizer.nextInt(height);
 
@@ -93,7 +119,7 @@ public class Island {
     public boolean allHerbivoresDead () {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                for (Animal animal : locations[x][y].getAnimals()) {
+                for (Animal animal : locations[y][x].getAnimals()) {
                     if (animal instanceof Herbivore) {
                         return false;
                     }
